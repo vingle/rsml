@@ -1,6 +1,6 @@
 # Revenue Sharing Language (RSL)
 
-*Status: v0.7, draft specification, open for review.*
+*Status: v0.8, draft specification, open for review.*
 
 RSL is a proposed syntax for describing revenue sharing agreements between multiple parties using [YAML](https://yaml.org/). 
 
@@ -42,7 +42,7 @@ An RSL agreement features three components:
 - **Steps**: An array of steps
 
 ### Data for a step in the agreement, numbered sequentially:
-- **Type**:  fixed or percent - *REQUIRED*.
+- **Type**:  fixed, percent or ratio - *REQUIRED*. Ratios are an alternative to percent, helpful for splits with recurring decimals when expressed as a % (e.g. a 3-way or 7-way split). Ratios are expressed only as the numerator (ie '1' for an equal 3-way split).
 - **Description**:
 - **Cap**: for percentage payouts, a max payout before moving to the next step. ‘null’, or unset indicates distribution runs indefinitely.
 - **Payee**: an array for payees, containing:
@@ -149,11 +149,11 @@ steps:
       - [ "Streaming costs", $fee.example.com, ilp, 50]
       - [ "Ocean forest restoration", $offset.example.com, ilp, 50]
   -
-    type: percent
+    type: ratio
     endpoint: celiafilm.example.com
     payeeTemplate:
-      - [ "Celia Bee Da'mil", $example.com/celia, ilp, 80]
-      - [ "{{website}}", "{{pointer}}", ilp, 20]
+      - [ "Celia Bee Da'mil", $example.com/celia, ilp, 5]
+      - [ "{{website}}", "{{pointer}}", ilp, 1]
 ```
 
 ### Example 4
